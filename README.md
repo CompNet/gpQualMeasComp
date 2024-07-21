@@ -69,7 +69,7 @@ We provide two scripts to reproduces the expriments:
 
 
 # Dependencies
-Tested with `python` version 3.6.13 and the following packages:
+Tested with `python` version 3.12.2 and the following packages:
 * [`pandas`](https://pypi.org/project/pandas/): version 2.2.1
 * [`numpy`](https://pypi.org/project/numpy/): version 1.26.4
 * [`networkx`](https://pypi.org/project/numpy/): version 3.2.1
@@ -80,7 +80,6 @@ Tested with `SPMF` version 2.62, which implements gSpan [[Y'02](#references)] (t
 
 
 # References
-* **[C'04]** L. P. Cordella, P. Foggia, C. Sansone, M. Vento. *A (sub)graph isomorphism algorithm for matching large graphs*, IEEE Transactions on Pattern Analysis and Machine Intelligence, 26(10):1367-1372, 2004. DOI: [10.1109/tpami.2004.75](https://doi.org/10.1109/tpami.2004.75)
 * **[D'91]** A. S. Debnath, R. L. Lopez, G. Debnath, A. Shusterman, C. Hansch. *Structure-activity relationship of mutagenic aromatic and heteroaromatic nitro compounds. Correlation with molecular orbital energies and hydrophobicity*, Journal of Medicinal Chemistry 34(2):786–797, 1991. DOI: [10.1021/jm00106a046](https://doi.org/10.1021/jm00106a046)
 * **[D'03]** P. D. Dobson, A. J. Doig. *Distinguishing enzyme structures from non-enzymes without alignments*, Journal of Molecular Biology 330(4):771–783, 2003. DOI: [10.1016/S0022-2836(03)00628-4](https://doi.org/10.1016/S0022-2836(03)00628-4)
 * **[H'14']** M. Houbraken, S. Demeyer, T. Michoel, P. Audenaert, D. Colle, M. Pickavet. *The Index-Based Subgraph Matching Algorithm with General Symmetries (ISMAGS): Exploiting Symmetry for Faster Subgraph Enumeration*, PLoS ONE 9(5):e97896, 2014. DOI: [10.1371/journal.pone.0097896](https://doi.org/10.1371/journal.pone.0097896).
