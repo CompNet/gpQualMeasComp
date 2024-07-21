@@ -68,16 +68,13 @@ We provide two scripts to reproduces the expriments:
 * `OneDataset.sh` (dataset): reproduces the experiments concerning the specific dataset.
 
 
-## To Replicate the Paper Experiments
-To replicate the experiments in our Paper[[P'23](#references)], first unzip the provided datasets, and run the desired script. 
-
 # Dependencies
 Tested with `python` version 3.6.13 and the following packages:
-* [`pandas`](https://pypi.org/project/pandas/): version 1.1.5
-* [`numpy`](https://pypi.org/project/numpy/): version 1.19.5
-* [`networkx`](https://pypi.org/project/numpy/): version 2.5.1
-* [`sklearn`](https://pypi.org/project/numpy/): version 0.24.2
-* [`matplotlib`](https://pypi.org/project/numpy/): version 3.3.4
+* [`pandas`](https://pypi.org/project/pandas/): version 2.2.1
+* [`numpy`](https://pypi.org/project/numpy/): version 1.26.4
+* [`networkx`](https://pypi.org/project/numpy/): version 3.2.1
+* [`sklearn`](https://pypi.org/project/numpy/): version 1.3.0
+* [`matplotlib`](https://pypi.org/project/numpy/): version 3.8.0
 
 Tested with `SPMF` version 2.62, which implements gSpan [[Y'02](#references)] (to mine frequent patterns)
 
