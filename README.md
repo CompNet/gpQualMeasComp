@@ -19,7 +19,7 @@ This repository is composed of the following elements:
   * `ClusteringComparison.py`: script that reproduces the experiments of Section 5.2.
   * `KendallTauHistogram.py`: script that reproduces the experiments of Section 5.2.2.
   * `PairwiseComparisons.py`: script that reproduces the experiments of Section 5.3.
-  * `GoldStandarComparison.py`: script that reproduces the experiments of Section 5.4.
+  * `GoldStandardComparison.py`: script that reproduces the experiments of Section 5.4.
 * `data`: folder containing the input data. Each subfolder corresponds to a distinct dataset, cf. Section [Datasets](##Data).
 * `results`: files produced by the processing.
 
