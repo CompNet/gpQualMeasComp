@@ -53,7 +53,7 @@ We retrieve two dataset from the [TU Dataset website](https://chrsmrrs.github.io
 * `AIDS` dataset, representing chemical compounds tested for AIDS inhibition [[R'08](#references)]
 * `FRANKENSTEIN` dataset, representing chemical compounds tested and their mutagenic properties [[O'15](#references)]
 
-The public procurement dataset contains graphs extracted from the FOPPA database:
+The public procurement dataset contains graphs extracted from the FOPPA database, available on [Zenodo](https://doi.org/10.5281/zenodo.10879932):
 * `FOPPA` : dataset extracted from FOPPA, a database of French public procurement notices [[P'23b](#references)]
 
 
