@@ -1,4 +1,4 @@
-Comparison of Graph Pattern Quality Measures v1.0.0
+Comparison of Graph Pattern Quality Measures v1.0.1
 -------------------------------------------------------------------------
 
 # Description
@@ -16,7 +16,7 @@ This repository is composed of the following elements:
 
 * `requirements.txt`: List of required Python packages.
 * `src`: folder containing the source code
-  * `ClusteringComparison.py`: script that reproduces the experiments of Section 5.2.
+  * `ClusteringComparison.py`: script that reproduces the experiments of Section 5.2.1. and Section 5.2.3.
   * `KendallTauHistogram.py`: script that reproduces the experiments of Section 5.2.2.
   * `PairwiseComparisons.py`: script that reproduces the experiments of Section 5.3.
   * `GoldStandardComparison.py`: script that reproduces the experiments of Section 5.4.
