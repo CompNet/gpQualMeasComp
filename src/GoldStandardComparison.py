@@ -677,8 +677,6 @@ def KVector(keep,K,diff,id_graphs,numberoccurences,LENGTHGRAPH,labels):
 import sys, getopt
 
 def graphKeep(Graphes,labels):
-    MAXG = 400
-    nbc = 0
     """Equilibrate the number of graphs in each class"""
     ### Equilibre dataset
     if len(labels)-sum(labels)>sum(labels):
@@ -688,21 +686,21 @@ def graphKeep(Graphes,labels):
         minority =0
         NbMino=len(labels)-sum(labels)
     keep = []
+    NbMino = 0
     count=0
     graphs=[]
     for i in range(len(labels)):
-        if labels[i]==minority and nbc < MAXG:
+        if labels[i]==minority:
+            NbMino=NbMino+1
             keep.append(i)
-            nbc=nbc+1
-    #complete=NbMino
-    complete = MAXG
+    complete=NbMino
     for i in range(len(labels)):   
         if labels[i]!=minority:
             if count<complete:
                 count=count+1
                 keep.append(i)
-    return keep
 
+    return keep
 
 
 def cross_validation(X,Y,cv,classifier):
