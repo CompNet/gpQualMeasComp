@@ -729,12 +729,11 @@ def graphKeep(Graphes,labels):
         minority =0
         NbMino=len(labels)-sum(labels)
     keep = []
+    NbMino = 0
     count=0
-    NbMino=0
-    threshold = 1000
     graphs=[]
     for i in range(len(labels)):
-        if labels[i]==minority and NbMino<threshold:
+        if labels[i]==minority:
             NbMino=NbMino+1
             keep.append(i)
     complete=NbMino
@@ -743,6 +742,7 @@ def graphKeep(Graphes,labels):
             if count<complete:
                 count=count+1
                 keep.append(i)
+
     return keep
 
 
