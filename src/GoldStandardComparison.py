@@ -542,9 +542,35 @@ def FPR(discriminationScore):
     result = np.where(discriminationScore.pCassumingnotP == 0, float('inf'), 1/discriminationScore.pCassumingnotP)
     return result
 
+def Gini(discriminationScore):
+    gini_index = 1 - (discriminationScore.pCassumingP ** 2 + discriminationScore.pnotCassumingP ** 2)
+    return 1/(gini_index+0.0000000001)
+
+def Gini2(discriminationScore):
+    gini_index = (discriminationScore.pPassumingC ** 2) * discriminationScore.pCassumingP + (discriminationScore.pPassumingnotC ** 2) * discriminationScore.pnotCassumingP
+    return 1/(gini_index+0.0000000001)
+
+def Entropy(discriminationScore):
+    epsilon = 1e-10  # Avoid log(0)
+    p0 = discriminationScore.pnotCassumingP
+    p1 = discriminationScore.pCassumingP
+    
+    entropy = - (p0 * np.log2(p0 + epsilon) + p1 * np.log2(p1 + epsilon))
+    return 1 / (entropy + epsilon)
+
+def Fisher(discriminationScore):
+    epsilon = 1e-10  # Avoid division by zero
+    mean_diff = (discriminationScore.pCassumingP - discriminationScore.pnotCassumingP) ** 2
+    var_sum = discriminationScore.pCassumingP * (1 - discriminationScore.pCassumingP) + \
+              discriminationScore.pnotCassumingP * (1 - discriminationScore.pnotCassumingP)
+    
+    return mean_diff / (var_sum + epsilon)
+
+
 
 def CertaintyFactor(discriminationScore):
     return (discriminationScore.pCassumingP - discriminationScore.pC) / (1 - discriminationScore.pC)
+
 def creationDictionnaryScores():
     dico = {
         "Acc": Acc,
@@ -556,8 +582,11 @@ def creationDictionnaryScores():
         "Cos": Cos,
         "Cover": Cover,
         "Dep": Dep,
+        "Entropy": Entropy,
         "Excex": Excex,
+        "Fisher": Fisher,
         "Gain": Gain,
+        "Gini": Gini,
         "GR": GR,
         "InfGain": InfGain,
         "Jacc": Jacc,
@@ -657,10 +686,12 @@ def graphKeep(Graphes,labels):
         minority =0
         NbMino=len(labels)-sum(labels)
     keep = []
+    NbMino = 0
     count=0
     graphs=[]
     for i in range(len(labels)):
         if labels[i]==minority:
+            NbMino=NbMino+1
             keep.append(i)
     complete=NbMino
     for i in range(len(labels)):   
@@ -668,8 +699,8 @@ def graphKeep(Graphes,labels):
             if count<complete:
                 count=count+1
                 keep.append(i)
-    return keep
 
+    return keep
 
 
 def cross_validation(X,Y,cv,classifier):
@@ -1079,11 +1110,11 @@ def GoldStandardComparison(arg,mode,id_graphsMono,labels,keep,TAILLEGRAPHE):
     if arg=="PTC":
         Range = [129]
     if arg=="FOPPA":
-        Range = [33]
+        Range = [66]
     if arg=="AIDS":
         Range = [19]
     if arg=="NCI1":
-        Range = [20]
+        Range = [39]
     if arg=="DD":
         Range = [353]
     if arg=="IMDB":
@@ -1280,43 +1311,45 @@ def plot_fig(arg):
     NAMESORTIEF1= "../results/"+str(arg)+"/"+ str(arg)+"ShapleyF1"
 
     dicoNumeroNom = {
-        0 : "Acc",
-        1 : "Brins",
-        2 : "CConf",
-        3 : "CFactor",
-        4 : "ColStr",
-        5 : "Cole",
-        6 : "Conf",
-        7 : "Cos",
-        8 : "Cover",
-        9 : "Dep",
-        10 : "Excex",
-        11 : "FPR",
-        12 : "GR",
-        13 : "Gain",
-        14 : "InfGain",
-        15 : "Jacc",
-        16 : "Klos",
-        17 : "Lap",
-        18 : "Lever",
-        19 : "Lift",
-        20 : "MDisc",
-        21 : "MutInf",
-        22 : "NetConf",
-        23 : "OddsR",
-        24 : "Pearson",
-        25 : "RelRisk",
-        26 : "Sebag",
-        27 : "Spec",
-        28 : "Str",
-        29 : "Sup",
-        30 : "SupDif",
-        31 : "AbsSupDif",
-        32 : "WRACC",
-        33 : "Zhang",
-        34 : "chiTwo",
-
-    }
+        0: "Acc",
+        1: "Brins",
+        2: "CConf",
+        3: "CFactor",
+        4: "ColStr",
+        5: "Cole",
+        6: "Conf",
+        7: "Cos",
+        8: "Cover",
+        9: "Dep",
+        10: "Entropy",
+        11: "Excex",
+        12: "FPR",
+        13: "Fisher",
+        14: "GR",
+        15: "Gain",
+        16: "Gini",
+        17: "InfGain",
+        18: "Jacc",
+        19: "Klos",
+        20: "Lap",
+        21: "Lever",
+        22: "Lift",
+        23: "MDisc",
+        24: "MutInf",
+        25: "NetConf",
+        26: "OddsR",
+        27: "Pearson",
+        28: "RelRisk",
+        29: "Sebag",
+        30: "Spec",
+        31: "Str",
+        32: "Sup",
+        33: "SupDif",
+        34: "AbsSupDif",
+        35: "WRACC",
+        36: "Zhang",
+        37: "chiTwo",
+}
 
     datas = pd.read_csv(NOMDATA)
     print(datas)
@@ -1347,14 +1380,14 @@ def plot_fig(arg):
     print(datas)
 
 
-    TOKEEP1 = [0,4,10,12,21,27,29,31]
+    TOKEEP1 = [0,4,11,14,24,30,32,34]
     TOKEEP2 = [16,17,18,20,21,22,23,24]
     TOKEEP3 = [25,27,28,29,31,33,34]
 
-    TOKEEPA = [0,4,7,9,10]
-    TOKEEPB = [12,13,15,16,17]
-    TOKEEPC = [20,21,22,23,24]
-    TOKEEPD = [25,27,29,31,34]
+    TOKEEPA = [0,4,7,9,10,11]
+    TOKEEPB = [14,15,18,19,20]
+    TOKEEPC = [23,24,25,26,27]
+    TOKEEPD = [28,30,32,33,37]
 
     maxVal = 0
     for i in range(0, nBScore):

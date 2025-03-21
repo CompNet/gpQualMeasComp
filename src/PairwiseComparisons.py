@@ -215,7 +215,7 @@ def load_patterns(fileName,TAILLE):
             temp= []
             tempOccu = []
             tempCoverage = []
-            for j in range(1,len(b)-1):
+            for j in range(1,len(b)):
                 val = b[j]
                 val = re.sub("\n","",val)
                 if not(val=="#" or val==""):
@@ -341,8 +341,8 @@ def patternMeasures(keep,labels,id_graphs,TAILLEPATTERN):
             pnotCassumingP[i]= t_Neg/(t_Pos+t_Neg)
         
         if t_Pos+t_Neg==lenALL:
-            pCassumingnotP[i]= 0
-            pnotCassumingnotP[i]= 0
+            pCassumingnotP[i]= 0.5
+            pnotCassumingnotP[i]= 0.5
         else:
             pCassumingnotP[i]= (lenC-t_Pos)/(lenALL-t_Pos-t_Neg)
             pnotCassumingnotP[i]= (lennotC-t_Neg)/(lenALL-t_Pos-t_Neg)
@@ -584,12 +584,32 @@ def TPR(discriminationScore):
     return discriminationScore.pCassumingP
 
 def FPR(discriminationScore):
-    result = np.where(discriminationScore.pCassumingnotP == 0, float('inf'), 1/discriminationScore.pCassumingnotP)
+    result = 1/(discriminationScore.pCassumingnotP+0.0000000000001)
     return result
 
 
 def CertaintyFactor(discriminationScore):
     return (discriminationScore.pCassumingP - discriminationScore.pC) / (1 - discriminationScore.pC)
+
+def Gini(discriminationScore):
+    gini_index = 1 - (discriminationScore.pCassumingP ** 2 + discriminationScore.pnotCassumingP ** 2)
+    return 1/(gini_index+0.0000000001)
+
+def Entropy(discriminationScore):
+    epsilon = 1e-10  # Avoid log(0)
+    p0 = discriminationScore.pnotCassumingP
+    p1 = discriminationScore.pCassumingP
+    
+    entropy = - (p0 * np.log2(p0 + epsilon) + p1 * np.log2(p1 + epsilon))
+    return 1 / (entropy + epsilon)
+
+def Fisher(discriminationScore):
+    epsilon = 1e-10  # Avoid division by zero
+    mean_diff = (discriminationScore.pCassumingP - discriminationScore.pnotCassumingP) ** 2
+    var_sum = discriminationScore.pCassumingP * (1 - discriminationScore.pCassumingP) + \
+              discriminationScore.pnotCassumingP * (1 - discriminationScore.pnotCassumingP)
+    
+    return mean_diff / (var_sum + epsilon)
 
 
 def creationDictionnaryScores():
@@ -614,8 +634,10 @@ def creationDictionnaryScores():
         "Sup": Supp,
         "Spec": Spec,
         "FPR": FPR,
-        "ColStr": ColStr,
         "Dep": Dep,
+        "Gini": Gini,
+        "Fisher": Fisher,
+        "ColStr": ColStr,
         "Excex": Excex,
         "Gain": Gain,
         "Jacc": Jacc,
@@ -628,7 +650,9 @@ def creationDictionnaryScores():
         "Pearson": Pearson,
         "RelRisk": RelRisk,
         "AbsSupDif": SuppDifAbs,
-        "chiTwo": chiTwo}
+        "chiTwo": chiTwo,
+        "Entropy": Entropy,
+        }
     #don't sort the dictionnary
     return dico
 
@@ -705,12 +729,11 @@ def graphKeep(Graphes,labels):
         minority =0
         NbMino=len(labels)-sum(labels)
     keep = []
+    NbMino = 0
     count=0
-    NbMino=0
-    threshold = 1000
     graphs=[]
     for i in range(len(labels)):
-        if labels[i]==minority and NbMino<threshold:
+        if labels[i]==minority:
             NbMino=NbMino+1
             keep.append(i)
     complete=NbMino
@@ -719,6 +742,7 @@ def graphKeep(Graphes,labels):
             if count<complete:
                 count=count+1
                 keep.append(i)
+
     return keep
 
 
@@ -1069,7 +1093,6 @@ def PairwiseComparisons(arg,mode,id_graphsMono,labelss,keep,TAILLEGRAPHE):
             delete = np.count_nonzero(scoresValues == -1000000)
             dicoRankings[compteur]=np.argsort(scoresValues,kind='mergesort')[::-1]
             dicoRankings[compteur] = dicoRankings[compteur][0:len(dicoRankings[compteur])-delete]
-            
             compteur=compteur+1
         dicoFinal[VALUECLUSTER]=dicoRankings
         import scipy
@@ -1101,6 +1124,9 @@ def PairwiseComparisons(arg,mode,id_graphsMono,labelss,keep,TAILLEGRAPHE):
         if mode == "i":
             nameSortie = NAMEBASE+"PairwiseComparisons"+str(METHOD)+"Induced"+".pdf"
         plt.savefig(nameSortie)
+        #Save the dataframe
+        nameSortie = NAMEBASE+"PairwiseComparisons"+str(METHOD)+".csv"
+        df.to_csv(nameSortie)
 
 
 

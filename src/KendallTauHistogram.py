@@ -602,6 +602,27 @@ def FPR(discriminationScore):
 def CertaintyFactor(discriminationScore):
     return (discriminationScore.pCassumingP - discriminationScore.pC) / (1 - discriminationScore.pC)
 
+# Les mesures à rajouter : 
+def Gini(discriminationScore):
+    gini_index = 1 - (discriminationScore.pCassumingP ** 2 + discriminationScore.pnotCassumingP ** 2)
+    return 1/(gini_index+0.0000000001)
+
+def Entropy(discriminationScore):
+    epsilon = 1e-10  # Avoid log(0)
+    p0 = discriminationScore.pnotCassumingP
+    p1 = discriminationScore.pCassumingP
+    
+    entropy = - (p0 * np.log2(p0 + epsilon) + p1 * np.log2(p1 + epsilon))
+    return 1 / (entropy + epsilon)
+
+def Fisher(discriminationScore):
+    epsilon = 1e-10  # Avoid division by zero
+    mean_diff = (discriminationScore.pCassumingP - discriminationScore.pnotCassumingP) ** 2
+    var_sum = discriminationScore.pCassumingP * (1 - discriminationScore.pCassumingP) + \
+              discriminationScore.pnotCassumingP * (1 - discriminationScore.pnotCassumingP)
+    
+    return mean_diff / (var_sum + epsilon)
+
 def creationDictionnaryScores():
     dico = {
         "Acc": Acc,
@@ -613,8 +634,11 @@ def creationDictionnaryScores():
         "Cos": Cos,
         "Cover": Cover,
         "Dep": Dep,
+        "Entropy": Entropy,
         "Excex": Excex,
+        "Fisher": Fisher,
         "Gain": Gain,
+        "Gini": Gini,
         "GR": GR,
         "InfGain": InfGain,
         "Jacc": Jacc,
@@ -1241,7 +1265,7 @@ def KendallTauHistograms(argu,mode,id_graphsMono,labelss,keep,TAILLEGRAPHE):
             res0.append(res[0])
             res20.append(res[20])
             res40.append(res[40])
-            res60.append(res[60])
+            res60.append(res[50])
             res80.append(res[80])
     bins = np.linspace(-1,1,100)
     histo0 = np.histogram(res0,bins=bins)
