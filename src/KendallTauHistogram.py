@@ -515,7 +515,6 @@ def MDisc(discriminationScore):
 
     return result
 
-# Debut A Faire Lucas
 def MutInf(discriminationScore):
     alpha = discriminationScore.pPC *np.log(discriminationScore.pPC/(discriminationScore.pP*discriminationScore.pC))
     beta = discriminationScore.pnotPC *np.log(discriminationScore.pnotPC/(discriminationScore.pnotP*discriminationScore.pC))
@@ -590,7 +589,6 @@ def Zhang(discriminationScore): #GOOD
     return (discriminationScore.pPC - discriminationScore.pP*discriminationScore.pC)/(maxi)
 
 
-#Fin A Faire Lucas
 def TPR(discriminationScore):
     return discriminationScore.pCassumingP
 
