@@ -2,7 +2,23 @@ Comparison of Graph Pattern Quality Measures v1.0.1
 -------------------------------------------------------------------------
 
 # Description
-This repository contains the source code and data used in article Pattern-Based Graph Classification: Comparison of Quality Measures and Importance of Preprocessing.
+This repository implements a framework to compare measures used to assess the quality (i.e. discriminative power) of graph patterns in the context of graph classification tasks. It uses a state-of-the-art graph representation and graph classifier to compute a large collection of such measures over several standard graph classification datasets. The detail of this algorithm are described in an article [[P'25](#references)].
+
+This work was conducted in the framework of the DeCoMaP ANR project (_Detection of corruption in public procurement markets_ -- [ANR-19-CE38-0004](https://anr.fr/Project-ANR-19-CE38-0004)). 
+
+If you use this source code, please cite article [[P'25](#references)]:
+```bibtex
+@Article{Potin2025,
+  author    = {Potin, Lucas and Figueiredo, Rosa and Labatut, Vincent and Largeron, Christine},
+  title     = {Pattern-Based Graph Classification: Comparison of Quality Measures and Importance of Preprocessing},
+  journal   = {ACM Transactions on Knowledge Discovery from Data (TKDD)},
+  year      = {2025},
+  volume    = {19},
+  number    = {6},
+  pages     = {123}
+  doi       = {10.1145/3743143},
+}
+```
 
 **Content**
 * [Organization](#organization)
@@ -54,7 +70,7 @@ We retrieve two dataset from the [TU Dataset website](https://chrsmrrs.github.io
 * `FRANKENSTEIN` dataset, representing chemical compounds tested and their mutagenic properties [[O'15](#references)]
 
 The public procurement dataset contains graphs extracted from the FOPPA database, available on [Zenodo](https://doi.org/10.5281/zenodo.10879932):
-* `FOPPA` : dataset extracted from FOPPA, a database of French public procurement notices [[P'23b](#references)]
+* `FOPPA` : dataset extracted from FOPPA, a database of French public procurement notices [[P'23](#references)]
 
 
 # Usage
@@ -87,7 +103,8 @@ Tested with `SPMF` version 2.62, which implements gSpan [[Y'02](#references)] (t
 * **[D'03]** P. D. Dobson, A. J. Doig. *Distinguishing enzyme structures from non-enzymes without alignments*, Journal of Molecular Biology 330(4):771–783, 2003. DOI: [10.1016/S0022-2836(03)00628-4](https://doi.org/10.1016/S0022-2836(03)00628-4)
 * **[H'14']** M. Houbraken, S. Demeyer, T. Michoel, P. Audenaert, D. Colle, M. Pickavet. *The Index-Based Subgraph Matching Algorithm with General Symmetries (ISMAGS): Exploiting Symmetry for Faster Subgraph Enumeration*, PLoS ONE 9(5):e97896, 2014. DOI: [10.1371/journal.pone.0097896](https://doi.org/10.1371/journal.pone.0097896).
 * **[O'15]** F. Orsini, P. Frasconi, L. De Raedt. *Graph invariant kernels*, 24th International Conference on Artificial Intelligence, pp. 3756–3762, 2015. DOI: [10.5555/2832747.2832773](http://doi.org/10.5555/2832747.2832773)
-* **[P'23b]** L. Potin, V. Labatut, P. H. Morand & C. Largeron. *FOPPA: An Open Database of French Public Procurement Award Notices From 2010–2020*, Scientific Data, 2023, 10:303. DOI: [10.1038/s41597-023-02213-z](https://dx.doi.org/10.1038/s41597-023-02213-z) 
+* **[P'23]** L. Potin, V. Labatut, P. H. Morand & C. Largeron. *FOPPA: An Open Database of French Public Procurement Award Notices From 2010–2020*, Scientific Data, 2023, 10:303. DOI: [10.1038/s41597-023-02213-z](https://dx.doi.org/10.1038/s41597-023-02213-z) 
+* **[P'25]** L. Potin, V. Labatut, P. H. Morand & C. Largeron. *Pattern-Based Graph Classification: Comparison of Quality Measures and Importance of Preprocessing*, ACM Transactions on Knowledge Discovery from Data, 2025, 19(6):123. DOI: [10.1145/3743143](https://dx.doi.org/10.1145/3743143) 
 * **[T'03]** H. Toivonen, A. Srinivasan, R. D. King, S. Kramer, C. Helma. *Statistical evaluation of the predictive toxicology challenge 2000-2001*, Bioinformatics 19(10):1183–1193, 2003. DOI: [10.1093/bioinformatics/btg130](https://doi.org/10.1093/bioinformatics/btg130)
 * **[W'06]** N. Wale, G. Karypis. *Comparison of descriptor spaces for chemical compound retrieval and classification*, 6th International Conference on Data Mining, pp. 678–689, 2006. DOI: [10.1007/s10115-007-0103-5](https://doi.org/10.1007/s10115-007-0103-5)
 * **[Y'02]** X. Yan, J. Han. *gSpan: Graph-based substructure pattern mining*, IEEE International Conference on Data Mining, pp.721-724, 2002. DOI: [10.1109/ICDM.2002.1184038](https://doi.org/10.1109/ICDM.2002.1184038)
